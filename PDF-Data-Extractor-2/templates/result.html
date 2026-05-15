@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>识别结果</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .warning-box {
+      background-color: #fff3cd;
+      border: 1px solid #ffc107;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: left;
+    }
+    .warning-box h4 { color: #856404; margin-top: 0; }
+    .warning-box ul { margin: 5px 0; padding-left: 20px; }
+    .success-box {
+      background-color: #d4edda;
+      border: 1px solid #28a745;
+      border-radius: 8px;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 600px;
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 25px;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .download-btn:hover { background-color: #0056b3; }
+    .back-link {
+      display: inline-block;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #007bff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>识别完成</h2>
+
+    {% if warnings %}
+    <div class="warning-box">
+      <h4>以下字段无法识别：</h4>
+      <ul>
+        {% for w in warnings %}
+        <li>{{ w }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if duplicates %}
+    <div class="warning-box">
+      <h4>疑似重复记录：</h4>
+      <ul>
+        {% for d in duplicates %}
+        <li>{{ d }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {% if not warnings and not duplicates %}
+    <div class="success-box">所有字段识别成功，无重复记录</div>
+    {% endif %}
+
+    <a href="{{ url_for('download_file', filename=excel_file) }}" class="download-btn">下载 Excel 文件</a>
+    <br>
+    <a href="{{ url_for('index') }}" class="back-link">← 继续上传</a>
+  </div>
+</body>
+</html>

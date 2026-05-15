@@ -1,0 +1,8 @@
+flask
+PyPDF2
+pandas
+python-dotenv
+google-genai
+pdf2image
+pytesseract
+openpyxl

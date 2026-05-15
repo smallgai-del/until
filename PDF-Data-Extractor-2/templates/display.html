@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Extracted PDF Text</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    .text-box {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: 30px auto;
+      white-space: pre-wrap;
+      text-align: left;
+      overflow-y: auto;
+      max-height: 60vh;
+    }
+    .back-link, .download-link {
+      display: inline-block;
+      margin: 15px auto;
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 500;
+    }
+    .back-link:hover, .download-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Extracted Text from {{ filename }}</h2>
+    <div class="text-box">
+      {{ text if text else "No text could be extracted." }}
+    </div>
+    <a href="{{ url_for('index') }}" class="back-link">← Upload another PDF</a>
+    {% if excel_file %}
+    <a href="{{ url_for('download_file', filename=excel_file) }}" class="download-link">💾 Download Excel</a>
+    {% endif %}
+  </div>
+</body>
+</html>
